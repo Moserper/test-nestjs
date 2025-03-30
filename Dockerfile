@@ -13,7 +13,7 @@ COPY prisma ./prisma
 RUN yarn install --frozen-lockfile
 COPY . .
 RUN yarn build
-RUN yarn prisma migrate deploy
+# RUN yarn prisma migrate deploy
 
 # Stage 2: Run the application
 FROM base as runner
@@ -28,4 +28,4 @@ COPY --chown=node:node --from=builder /app/prisma ./prisma
 USER node
 
 EXPOSE 3000
-CMD ["yarn", "start:prod"]
+ENTRYPOINT ["yarn", "start:prod"]
